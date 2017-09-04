@@ -1,0 +1,87 @@
+<style lang="less">
+  .justify {
+    justify-content: center;
+  }
+
+  .align {
+    align-items: center;
+  }
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userinfo-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+</style>
+<template>
+  <view class="container">
+    <view class="page__bd">
+
+    <form @submit="bindUpVideo">
+      <view class="weui-media-box__title weui-media-box__title_in-text">标题</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <input name="title" class="weui-input" placeholder="请输入标题" />
+          </view>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <button formType="submit" class="weui-btn" type="primary">上传视频</button>
+      </view>
+      
+    </form>
+    <view class="body-view">
+        <loading hidden="{{hidden}}" bindchange="loadingChange">
+          上传中...
+        </loading>
+      </view>
+  </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import VideoList from '../components/videolist'
+  import Panel from '../components/panel'
+  import db from '../utils/db'
+  export default class Post extends wepy.page {
+    config = {
+      navigationBarTitleText: '上传视频'
+    }
+    components = {
+      panel: Panel,
+      videolist: VideoList
+    }
+    data = {
+      hidden: true,
+    }
+    methods = {
+      bindUpVideo (e) {
+        let that = this
+        console.log(e)
+        let title = e.detail.value.title
+        that.hidden = false
+        wepy.chooseVideo({
+          success: function (res) {
+            console.log(res.tempFilePath)
+            db.insertData(title, res)
+            that.hidden = true
+          }
+        })
+      }
+    }
+    onLoad() {
+    }
+  }
+
+</script>

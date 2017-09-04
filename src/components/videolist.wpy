@@ -1,0 +1,82 @@
+<style lang="scss">
+  .myvideo{
+    width: 90%;
+    height: 400rpx;
+    margin:1px;
+  }
+  $border: 1px solid #eeeeee;
+    .list {
+        margin-top: 40rpx;
+        background-color: #fff;
+        border-bottom: $border;
+        .item {
+            height: 100rpx;
+            position: relative;
+            box-sizing: border-box;
+            padding: 20rpx;
+            border-bottom: $border;
+            .icon {
+                width: 60rpx;
+                height: 60rpx;
+                position: absolute;
+                margin-left: 15rpx;
+            }
+            .arrow_left {
+                position: absolute;
+                right: 20rpx;
+                width: 30rpx;
+                height: 40rpx;
+                margin-top: -32rpx;
+            }
+            .title {
+                padding: 18rpx 0 0 100rpx;
+                display: block;
+                font-size: 33rpx;
+            }
+        }
+    }
+</style>
+<template>
+  <view class="list">
+    <block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+      <view @tap="tap" class="list weui-flex">
+        <view  class="mylist weui-flex__item">
+          <video class="myvideo" src="{{item.src}}" controls="false"></video>
+        </view>
+        <view class="weui-flex__item weui-cell__bd content">
+          <view>作品名称：{{item.title}}</view>
+          <view>演奏人：{{item.title}}</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</template>
+<script>
+  import wepy from 'wepy'
+  import db from '../utils/db'
+  export default class VideoList extends wepy.component {
+    data = {
+      list: []
+    }
+
+    methods = {
+      tap () {
+        // this.num = this.num + 1
+        console.log(this.$name + ' tap')
+      }
+    }
+
+    async onLoad() {
+      console.log('onLoad')
+
+      let res = await db.getList()
+      console.log(res.data)
+      this.list = res.data
+      this.$apply()
+      console.log(this.list)
+    }
+    onShow () {
+      console.log('onShow')
+    }
+  }
+</script>

@@ -1,0 +1,22 @@
+
+  <view class="container">
+    <!--<panel>
+      <view bindtap="tap" class="title" slot="title">测试列表</view>
+      <videolist></videolist>
+    </panel>-->
+    
+  <view class="list">
+    <block  wx:for-items="{{$videolist$list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+      <view bindtap="$videolist$tap" class="list weui-flex">
+        <view class="mylist weui-flex__item">
+          <video class="myvideo" src="{{item.src}}" controls="false"/>
+        </view>
+        <view class="weui-flex__item weui-cell__bd content">
+          <view>作品名称：{{item.title}}</view>
+          <view>演奏人：{{item.title}}</view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  </view>

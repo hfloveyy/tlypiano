@@ -1,0 +1,55 @@
+<style lang="less">
+  .justify {
+    justify-content: center;
+  }
+
+  .align {
+    align-items: center;
+  }
+  .userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .userinfo-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+  }
+
+  .userinfo-nickname {
+    color: #aaa;
+  }
+</style>
+<template>
+  <view class="container">
+    <panel>
+      <view class="title" slot="title">测试列表</view>
+      <videolist></videolist>
+    </panel>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import VideoList from '../components/videolist'
+  import Panel from '../components/panel'
+  export default class About extends wepy.page {
+    config = {
+      navigationBarTitleText: 'test'
+    }
+    components = {
+      panel: Panel,
+      videolist: VideoList
+    }
+    data = {
+
+    }
+    methods = {
+
+    }
+    onLoad() {}
+  }
+
+</script>
