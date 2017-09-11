@@ -24,11 +24,15 @@
 </style>
 <template>
   <view class="container">
-    <!--<panel>
-      <view @tap="tap" class="title" slot="title">测试列表</view>
-      <videolist></videolist>
-    </panel>-->
-    <videolist></videolist>
+    <view  class="mylist">
+          <video class="myvideo" src="{{item.src}}"></video>
+        </view>
+        <view class="content">
+          <view>作品名称：{{item.title}}</view>
+          <view>演奏人：{{item.player}}</view>
+          <view>年龄：{{item.age}}年</view>
+          <view>学龄：{{item.studyage}}年</view>
+        </view>
   </view>
 </template>
 
@@ -36,7 +40,6 @@
   import wepy from 'wepy'
   import VideoList from '../components/videolist'
   import Panel from '../components/panel'
-  import db from '../utils/db'
   export default class Index extends wepy.page {
     config = {
       navigationBarTitleText: '天籁音钢琴艺术教室'
@@ -46,26 +49,30 @@
       videolist: VideoList
     }
     data = {
-
+      item: {src: '', title: ''}
     }
     methods = {
       tap () {
         console.log(this.$name)
       }
     }
-    onLoad() {}
-
-    onShow() {
-
-    }
-    async onPullDownRefresh () {
-      let res = await db.getList()
-      console.log(res.data)
-      this.list = res.data
+    onLoad(options) {
+      let src = options.src
+      let title = options.title
+      let player = options.player
+      let age = options.age
+      let studyage = options.studyage
+      console.log('detail src:' + src)
+      console.log('title: ' + title)
+      this.item.src = src
+      this.item.title = title
+      this.item.player = player
+      this.item.age = age
+      this.item.studyage = studyage
       this.$apply()
-      console.log(this.list)
     }
-
+    onShareAppMessage() {
+    }
   }
 
 </script>

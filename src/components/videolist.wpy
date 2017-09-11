@@ -39,13 +39,15 @@
 <template>
   <view class="list">
     <block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-      <view @tap="tap" class="list weui-flex">
+      <view @tap="tap({{item.src}},{{item.title}},{{item.player}},{{item.age}},{{item.studyage}})" class="list weui-flex">
         <view  class="mylist weui-flex__item">
           <video class="myvideo" src="{{item.src}}" controls="false"></video>
         </view>
         <view class="weui-flex__item weui-cell__bd content">
           <view>作品名称：{{item.title}}</view>
-          <view>演奏人：{{item.title}}</view>
+          <view>演奏人：{{item.player}}</view>
+          <view>年龄：{{item.age}}年</view>
+          <view>学龄：{{item.studyage}}年</view>
         </view>
       </view>
     </block>
@@ -60,9 +62,14 @@
     }
 
     methods = {
-      tap () {
+      tap (url, title ,player, age, studyage, e) {
         // this.num = this.num + 1
         console.log(this.$name + ' tap')
+        console.log('url:'+ url)
+        console.log('title:'+ title)
+        wepy.navigateTo({
+          url: 'detail?src=' + url + '&title='+ title +'&player='+ player +'&age='+ age +'&studyage='+ studyage 
+        })
       }
     }
 
@@ -78,5 +85,6 @@
     onShow () {
       console.log('onShow')
     }
+    
   }
 </script>

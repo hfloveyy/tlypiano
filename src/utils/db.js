@@ -30,34 +30,30 @@ export default {
       })
     });
     // 查询所有数据
-    return promise;
+    return promise
   }
 
 ,
-  insertData(title,res){
+  insertData(title, player, age, studyage, res){
     let tempFilePath = Array(res.tempFilePath);
     if (tempFilePath.length > 0) {
       let Diary = Bmob.Object.extend("diary");
       let diary = new Diary();
       let name = title+".mp4";
       let file = new Bmob.File(name, tempFilePath);
-      file.save().then(function(res){
-              diary.set("title",name);
-              diary.set("src",String(res.url()));
-              diary.save(null, {
-                success: function(result) {
-                  // 添加成功，返回成功之后的objectId（注意：返回的属性名字是id，不是objectId），你还可以在Bmob的Web管理后台看到对应的数据
-                    console.log("日记创建成功, objectId:"+result.id);
-                },
-                error: function(result, error) {
-                  // 添加失败
-                  console.log('创建日记失败');
-                }
-              });
+      let promise = new Promise(function(resolve, reject) {
+        file.save().then(function(res){
+          diary.set("title", title);
+          diary.set("player", player)
+          diary.set("src", String(res.url()));
+          diary.set("age", age)
+          diary.set("studyage", studyage)
+          diary.save()
+        })
       })
+      return promise
     }
   }
-
 }
 
 

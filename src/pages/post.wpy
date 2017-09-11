@@ -27,11 +27,35 @@
     <view class="page__bd">
 
     <form @submit="bindUpVideo">
-      <view class="weui-media-box__title weui-media-box__title_in-text">标题</view>
+      <view class="weui-media-box__title weui-media-box__title_in-text">作品名称</view>
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__bd">
-            <input name="title" class="weui-input" placeholder="请输入标题" />
+            <input name="title" class="weui-input" placeholder="请输入作品名称..." />
+          </view>
+        </view>
+      </view>
+      <view class="weui-media-box__title weui-media-box__title_in-text">演奏人</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <input name="player" class="weui-input" placeholder="请输入演奏人姓名..." />
+          </view>
+        </view>
+      </view>
+      <view class="weui-media-box__title weui-media-box__title_in-text">年龄</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <input name="age" class="weui-input" placeholder="请输入演奏人年龄..." />
+          </view>
+        </view>
+      </view>
+      <view class="weui-media-box__title weui-media-box__title_in-text">学龄</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__bd">
+            <input name="studyage" class="weui-input" placeholder="请输入演奏人学龄..." />
           </view>
         </view>
       </view>
@@ -63,19 +87,27 @@
       videolist: VideoList
     }
     data = {
-      hidden: true,
+      hidden: true
     }
     methods = {
       bindUpVideo (e) {
         let that = this
         console.log(e)
         let title = e.detail.value.title
+        let player = e.detail.value.player
+        let age = e.detail.value.age
+        let studyage = e.detail.value.studyage
         that.hidden = false
         wepy.chooseVideo({
           success: function (res) {
-            console.log(res.tempFilePath)
-            db.insertData(title, res)
-            that.hidden = true
+            db.insertData(title, player, age, studyage, res).then(function(res){
+              console.log('success')
+              that.hidden = true
+              this.$apply()
+              wepy.switchTab({
+                url: 'index'
+              })
+            })
           }
         })
       }

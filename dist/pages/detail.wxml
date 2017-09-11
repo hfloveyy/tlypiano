@@ -1,0 +1,12 @@
+
+  <view class="container">
+    <view class="mylist">
+          <video class="myvideo" src="{{item.src}}"/>
+        </view>
+        <view class="content">
+          <view>作品名称：{{item.title}}</view>
+          <view>演奏人：{{item.player}}</view>
+          <view>年龄：{{item.age}}年</view>
+          <view>学龄：{{item.studyage}}年</view>
+        </view>
+  </view>
