@@ -34,7 +34,7 @@ export default {
   }
 
 ,
-  insertData(title, player, age, studyage, res){
+  insertData(title, player, age, studyage, nickName, url,res){
     let tempFilePath = Array(res.tempFilePath);
     if (tempFilePath.length > 0) {
       let Diary = Bmob.Object.extend("diary");
@@ -48,11 +48,17 @@ export default {
           diary.set("src", String(res.url()));
           diary.set("age", age)
           diary.set("studyage", studyage)
+          diary.set("nickName", nickName)
+          diary.set("url", url)
           diary.save()
         })
       })
       return promise
     }
+  }
+,
+  Bmob(){
+    return Bmob
   }
 }
 

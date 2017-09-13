@@ -19,7 +19,9 @@
   }
 
   .userinfo-nickname {
-    color: #aaa;
+    font-size: 33rpx;
+    color:blue;
+    font-weight:bold
   }
 </style>
 <template>
@@ -28,7 +30,7 @@
       <view @tap="tap" class="title" slot="title">测试列表</view>
       <videolist></videolist>
     </panel>-->
-    <videolist></videolist>
+    <videolist :list.sync="{{list}}"></videolist>
   </view>
 </template>
 
@@ -39,14 +41,15 @@
   import db from '../utils/db'
   export default class Index extends wepy.page {
     config = {
-      navigationBarTitleText: '天籁音钢琴艺术教室'
+      navigationBarTitleText: '天籁音钢琴艺术教室',
+      enablePullDownRefresh: true
     }
     components = {
       panel: Panel,
       videolist: VideoList
     }
     data = {
-
+      list: []
     }
     methods = {
       tap () {
@@ -56,14 +59,26 @@
     onLoad() {}
 
     onShow() {
-
+      let res = await db.getList()
+      console.log(res.data)
+      this.list = res.data
+      this.$apply()
+      console.log('刷新');
     }
     async onPullDownRefresh () {
       let res = await db.getList()
       console.log(res.data)
       this.list = res.data
       this.$apply()
-      console.log(this.list)
+      console.log('刷新');
+    }
+
+    async onReachBottom () {
+      let res = await db.getList()
+      console.log(res.data)
+      this.list = res.data
+      this.$apply()
+      console.log('circle 下一页');
     }
 
   }

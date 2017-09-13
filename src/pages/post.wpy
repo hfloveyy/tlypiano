@@ -87,7 +87,8 @@
       videolist: VideoList
     }
     data = {
-      hidden: true
+      hidden: true,
+      userInfo:null
     }
     methods = {
       bindUpVideo (e) {
@@ -97,10 +98,12 @@
         let player = e.detail.value.player
         let age = e.detail.value.age
         let studyage = e.detail.value.studyage
+        let nickName = that.userInfo.nickName
+        let url = that.userInfo.avatarUrl
         that.hidden = false
         wepy.chooseVideo({
           success: function (res) {
-            db.insertData(title, player, age, studyage, res).then(function(res){
+            db.insertData(title, player, age, studyage, nickName, url, res).then(function(res){
               console.log('success')
               that.hidden = true
               this.$apply()
@@ -113,6 +116,8 @@
       }
     }
     onLoad() {
+      this.userInfo = this.$parent.getUserInfo()
+      console.log(this.userInfo)
     }
   }
 

@@ -38,6 +38,9 @@ page{
 <script>
 import wepy from 'wepy'
 import 'wepy-async-function'
+import db from '../src/utils/db'
+
+var Bmob = db.Bmob()
 
 export default class extends wepy.app {
   config = {
@@ -87,7 +90,8 @@ export default class extends wepy.app {
   }
 
   onLaunch() {
-    this.testAsync()
+    console.log('onLaunch')
+    this.getUserInfo()
   }
 
   sleep (s) {
@@ -103,15 +107,33 @@ export default class extends wepy.app {
     console.log(data)
   }
 
-  async getUserInfo() {
-        if (this.globalData.userInfo) {
-            return this.globalData.userInfo;
+  getUserInfo() {
+    let that = this
+    let user = new Bmob.User()
+    if (this.globalData.userInfo) {
+      return this.globalData.userInfo;
+    }
+    wepy.login({
+        success (res) {
+            user.loginWithWeapp(res.code).then(function (user) {
+            var openid = user.get("authData").weapp.openid;
+            console.log(user, 'user', user.id, res);
+            wx.setStorageSync('openid', openid)
+            }, function (err) {
+                console.log('here');
+                console.log(err, 'errr');
+            });
         }
-        await wx.login();
-        let res = await wx.getUserInfo();
-        this.globalData.userInfo = res.userInfo;
-        return res.userInfo;
-    }  
+    });
+    wx.getUserInfo({
+        success (res) {
+          //console.log(res.userInfo);
+          that.globalData.userInfo = res.userInfo;
+        }
+    });
+
+    return this.globalData.userInfo;
+  }  
 }
 
 </script>

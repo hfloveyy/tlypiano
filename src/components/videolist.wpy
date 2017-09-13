@@ -1,7 +1,7 @@
 <style lang="scss">
   .myvideo{
-    width: 90%;
-    height: 400rpx;
+    width: 100%;
+    height: 300rpx;
     margin:1px;
   }
   $border: 1px solid #eeeeee;
@@ -10,14 +10,14 @@
         background-color: #fff;
         border-bottom: $border;
         .item {
-            height: 100rpx;
+            height: 400rpx;
             position: relative;
             box-sizing: border-box;
             padding: 20rpx;
             border-bottom: $border;
             .icon {
-                width: 60rpx;
-                height: 60rpx;
+                width: 80rpx;
+                height: 80rpx;
                 position: absolute;
                 margin-left: 15rpx;
             }
@@ -32,6 +32,8 @@
                 padding: 18rpx 0 0 100rpx;
                 display: block;
                 font-size: 33rpx;
+                color:#607B8B;
+                font-family:"Times New Roman";
             }
         }
     }
@@ -39,15 +41,17 @@
 <template>
   <view class="list">
     <block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-      <view @tap="tap({{item.src}},{{item.title}},{{item.player}},{{item.age}},{{item.studyage}})" class="list weui-flex">
-        <view  class="mylist weui-flex__item">
-          <video class="myvideo" src="{{item.src}}" controls="false"></video>
-        </view>
-        <view class="weui-flex__item weui-cell__bd content">
-          <view>作品名称：{{item.title}}</view>
-          <view>演奏人：{{item.player}}</view>
-          <view>年龄：{{item.age}}年</view>
-          <view>学龄：{{item.studyage}}年</view>
+      <view @tap="tap({{item.src}},{{item.title}},{{item.player}},{{item.age}},{{item.studyage}})" class="item">
+        <image class="icon" src="{{item.url}}"></image>
+        <view class="title">{{item.nickName}}</view>
+        <view class="weui-flex">
+          <video class="myvideo weui-flex__item" src="{{item.src}}" controls="false"></video>
+          <view class="weui-flex__item weui-cell__bd content">
+            <view>作品名称：{{item.title}}</view>
+            <view>演奏人：{{item.player}}</view>
+            <view>年龄：{{item.age}}年</view>
+            <view>学龄：{{item.studyage}}年</view>
+          </view>
         </view>
       </view>
     </block>

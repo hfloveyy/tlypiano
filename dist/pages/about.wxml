@@ -8,15 +8,17 @@
       
   <view class="list">
     <block  wx:for-items="{{$videolist$list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-      <view bindtap="$videolist$tap" class="list weui-flex" data-wepy-params-a="{{item.src}}" data-wepy-params-b="{{item.title}}" data-wepy-params-c="{{item.player}}" data-wepy-params-d="{{item.age}}" data-wepy-params-e="{{item.studyage}}">
-        <view class="mylist weui-flex__item">
-          <video class="myvideo" src="{{item.src}}" controls="false"/>
-        </view>
-        <view class="weui-flex__item weui-cell__bd content">
-          <view>作品名称：{{item.title}}</view>
-          <view>演奏人：{{item.player}}</view>
-          <view>年龄：{{item.age}}年</view>
-          <view>学龄：{{item.studyage}}年</view>
+      <view bindtap="$videolist$tap" class="item" data-wepy-params-a="{{item.src}}" data-wepy-params-b="{{item.title}}" data-wepy-params-c="{{item.player}}" data-wepy-params-d="{{item.age}}" data-wepy-params-e="{{item.studyage}}">
+        <image class="icon" src="{{item.url}}"/>
+        <view class="title">{{item.nickName}}</view>
+        <view class="weui-flex">
+          <video class="myvideo weui-flex__item" src="{{item.src}}" controls="false"/>
+          <view class="weui-flex__item weui-cell__bd content">
+            <view>作品名称：{{item.title}}</view>
+            <view>演奏人：{{item.player}}</view>
+            <view>年龄：{{item.age}}年</view>
+            <view>学龄：{{item.studyage}}年</view>
+          </view>
         </view>
       </view>
     </block>
