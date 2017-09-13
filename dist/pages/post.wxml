@@ -23,7 +23,7 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__bd">
-            <input name="age" class="weui-input" placeholder="请输入演奏人年龄..."/>
+            <input name="age" class="weui-input" placeholder="请输入演奏人年龄..." type="number"/>
           </view>
         </view>
       </view>
@@ -31,7 +31,7 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__bd">
-            <input name="studyage" class="weui-input" placeholder="请输入演奏人学龄..."/>
+            <input name="studyage" class="weui-input" placeholder="请输入演奏人学龄..." type="number"/>
           </view>
         </view>
       </view>

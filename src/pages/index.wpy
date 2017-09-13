@@ -49,28 +49,33 @@
       videolist: VideoList
     }
     data = {
-      list: []
+      list: [{src:"http://bmob-cdn-11559.b0.upaiyun.com/2017/09/13/c0ab582d4015402080c58d4374bb5db2.mp4"
+
+      }]
     }
     methods = {
       tap () {
         console.log(this.$name)
       }
     }
-    onLoad() {}
+    onLoad() {
+      console.log('index onLoad')
+    }
 
-    onShow() {
+    async onShow() {
+      console.log('index onShow')
       let res = await db.getList()
-      console.log(res.data)
-      this.list = res.data
+      
+       = res.data
       this.$apply()
-      console.log('刷新');
+      console.log(this.list)
     }
     async onPullDownRefresh () {
       let res = await db.getList()
       console.log(res.data)
       this.list = res.data
       this.$apply()
-      console.log('刷新');
+      console.log('刷新')
     }
 
     async onReachBottom () {
@@ -78,9 +83,8 @@
       console.log(res.data)
       this.list = res.data
       this.$apply()
-      console.log('circle 下一页');
+      console.log('circle 下一页')
     }
-
   }
 
 </script>

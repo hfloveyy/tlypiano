@@ -32,7 +32,7 @@
                 padding: 18rpx 0 0 100rpx;
                 display: block;
                 font-size: 33rpx;
-                color:#607B8B;
+                color:#606784;
                 font-family:"Times New Roman";
             }
         }
@@ -62,32 +62,34 @@
   import db from '../utils/db'
   export default class VideoList extends wepy.component {
     data = {
+      
+    }
+
+    props = {
       list: []
     }
 
     methods = {
       tap (url, title ,player, age, studyage, e) {
         // this.num = this.num + 1
-        console.log(this.$name + ' tap')
-        console.log('url:'+ url)
-        console.log('title:'+ title)
+        //console.log(this.$name + ' tap')
+        //console.log('url:'+ url)
+        //console.log('title:'+ title)
         wepy.navigateTo({
           url: 'detail?src=' + url + '&title='+ title +'&player='+ player +'&age='+ age +'&studyage='+ studyage 
         })
       }
     }
 
-    async onLoad() {
-      console.log('onLoad')
-
-      let res = await db.getList()
-      console.log(res.data)
-      this.list = res.data
-      this.$apply()
+    onLoad() {
+      console.log('videolist onLoad')
       console.log(this.list)
-    }
-    onShow () {
-      console.log('onShow')
+      console.log(this.$parent.list);
+      //let res = await db.getList()
+      //console.log(res.data)
+      //this.list = res.data
+      //this.$apply()
+      //console.log(this.list)
     }
     
   }
