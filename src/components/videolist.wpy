@@ -61,13 +61,15 @@
   import wepy from 'wepy'
   import db from '../utils/db'
   export default class VideoList extends wepy.component {
+    props = {
+      list: {}
+    }
+
     data = {
       
     }
 
-    props = {
-      list: []
-    }
+
 
     methods = {
       tap (url, title ,player, age, studyage, e) {
@@ -83,8 +85,6 @@
 
     onLoad() {
       console.log('videolist onLoad')
-      console.log(this.list)
-      console.log(this.$parent.list);
       //let res = await db.getList()
       //console.log(res.data)
       //this.list = res.data

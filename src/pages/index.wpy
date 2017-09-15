@@ -30,7 +30,7 @@
       <view @tap="tap" class="title" slot="title">测试列表</view>
       <videolist></videolist>
     </panel>-->
-    <videolist :list.sync="{{list}}"></videolist>
+    <videolist :list.sync="list"></videolist>
   </view>
 </template>
 
@@ -49,9 +49,7 @@
       videolist: VideoList
     }
     data = {
-      list: [{src:"http://bmob-cdn-11559.b0.upaiyun.com/2017/09/13/c0ab582d4015402080c58d4374bb5db2.mp4"
-
-      }]
+      list: []
     }
     methods = {
       tap () {
@@ -65,9 +63,9 @@
     async onShow() {
       console.log('index onShow')
       let res = await db.getList()
-      
-       = res.data
+      this.list= res.data
       this.$apply()
+      console.log("this.list")
       console.log(this.list)
     }
     async onPullDownRefresh () {
