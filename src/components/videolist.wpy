@@ -1,9 +1,5 @@
 <style lang="scss">
-  .myvideo{
-    width: 100%;
-    height: 300rpx;
-    margin:1px;
-  }
+
   $border: 1px solid #eeeeee;
     .list {
         margin-top: 40rpx;
@@ -15,11 +11,30 @@
             box-sizing: border-box;
             padding: 20rpx;
             border-bottom: $border;
-            .icon {
-                width: 80rpx;
-                height: 80rpx;
-                position: absolute;
-                margin-left: 15rpx;
+            flex-direction:column;
+            .video{
+                display:flex;
+                justify-content: flex-end;
+                .myvideo {
+                    width: 400rpx;
+                    height: 300rpx;
+                    margin:1px;
+                }
+            }
+            .user {
+                .icon {
+                  width: 80rpx;
+                  height: 80rpx;
+                  position: absolute;
+                  margin-left: 15rpx;
+                }
+                .title {
+                  padding: 18rpx 0 0 100rpx;
+                  display: block;
+                  font-size: 33rpx;
+                  color:#606784;
+                  font-family:"Times New Roman";
+                }
             }
             .arrow_left {
                 position: absolute;
@@ -28,13 +43,7 @@
                 height: 40rpx;
                 margin-top: -32rpx;
             }
-            .title {
-                padding: 18rpx 0 0 100rpx;
-                display: block;
-                font-size: 33rpx;
-                color:#606784;
-                font-family:"Times New Roman";
-            }
+            
         }
     }
 </style>
@@ -42,11 +51,13 @@
   <view class="list">
     <block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
       <view @tap="tap({{item.src}},{{item.title}},{{item.player}},{{item.age}},{{item.studyage}})" class="item">
-        <image class="icon" src="{{item.url}}"></image>
-        <view class="title">{{item.nickName}}</view>
-        <view class="weui-flex">
-          <video class="myvideo weui-flex__item" src="{{item.src}}" controls="false"></video>
-          <view class="weui-flex__item weui-cell__bd content">
+        <view class="user">
+          <image class="icon" src="{{item.url}}"></image>
+          <view class="title">{{item.nickName}}</view>
+        </view>
+        <view class="video">
+          <video class="myvideo" src="{{item.src}}" controls="false"></video>
+          <view class="">
             <view>作品名称：{{item.title}}</view>
             <view>演奏人：{{item.player}}</view>
             <view>年龄：{{item.age}}年</view>
@@ -73,10 +84,6 @@
 
     methods = {
       tap (url, title ,player, age, studyage, e) {
-        // this.num = this.num + 1
-        //console.log(this.$name + ' tap')
-        //console.log('url:'+ url)
-        //console.log('title:'+ title)
         wepy.navigateTo({
           url: 'detail?src=' + url + '&title='+ title +'&player='+ player +'&age='+ age +'&studyage='+ studyage 
         })
