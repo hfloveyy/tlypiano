@@ -104,10 +104,8 @@
         wepy.chooseVideo({
           success: function (res) {
             db.insertData(title, player, age, studyage, nickName, url, res).then(function(res){
-              console.log('success')
               that.hidden = true
-              this.$apply()
-              wepy.switchTab({
+              wx.switchTab({
                 url: 'index'
               })
             })
@@ -117,7 +115,7 @@
     }
     onLoad() {
       this.userInfo = this.$parent.getUserInfo()
-      console.log(this.userInfo)
+      //console.log(this.userInfo)
     }
   }
 

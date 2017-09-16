@@ -50,7 +50,11 @@ export default {
           diary.set("studyage", studyage)
           diary.set("nickName", nickName)
           diary.set("url", url)
-          diary.save()
+          diary.save().then(function(res){
+            resolve("success");
+          },function(err){
+            reject("error");
+          })
         })
       })
       return promise

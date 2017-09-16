@@ -49,7 +49,8 @@
       videolist: VideoList
     }
     data = {
-      list: []
+      list: [],
+      userInfo:{}
     }
     methods = {
       tap () {
@@ -57,6 +58,7 @@
       }
     }
     onLoad() {
+      this.userInfo = this.$parent.getUserInfo()
       console.log('index onLoad')
     }
 
