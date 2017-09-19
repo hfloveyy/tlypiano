@@ -2,23 +2,24 @@
 
   $border: 1px solid #eeeeee;
     .list {
-        margin-top: 10rpx;
+        margin-top: 10rpx;/*设置元素的上外边距*/
         background-color: #fff;
         border-bottom: $border;
         .item {
             display: flex;
-            height: 400rpx;
+            height: 600rpx;
             position: relative;
             box-sizing: border-box;
-            padding: 10rpx;
+            padding: 5rpx;/*边框*/
             border-bottom: $border;
             flex-direction:column;
             .video{
+                margin-top: 20rpx;
                 display: flex;
                 align-items: center;
                 .myvideo {
-                    width: 95%;
-                    height: 300rpx;
+                    width: 100%;
+                    height: 400rpx;
                     margin:1px;
                 }
             }
@@ -37,6 +38,17 @@
                   font-family:"Times New Roman";
                 }
             }
+            .desc {
+              margin-top: 20rpx;
+              font-size: 30rpx;
+              color:#606784;
+              font-family:"Times New Roman";
+              .zan {
+                width: 50rpx;
+                height: 50rpx;
+              }
+            }
+
             .arrow_left {
                 position: absolute;
                 right: 20rpx;
@@ -44,7 +56,6 @@
                 height: 40rpx;
                 margin-top: -32rpx;
             }
-            
         }
     }
 </style>
@@ -59,7 +70,9 @@
         <view class="video">
           <video class="myvideo" src="{{item.src}}" controls="false"></video>
         </view>
-
+        <view class="desc">
+          <view>作品名称：{{item.title}}</view><image class="zan" src="../images/zan1.png" ></image>
+        </view>
       </view>
     </block>
   </view>

@@ -24,13 +24,7 @@
 </style>
 <template>
   <view class="container">
-   <swpier indicator-dots="true" autoplay="true" interval="3000" duration="1200" bindchange="">
-     <block wx:for="{{}}">
-       <swpier-item>
-         <image src="{{item}}" mode="scaleToFill"/>
-       </swpier-item>
-     </block>
-   </swpier> 
+   
   </view>
 </template>
 

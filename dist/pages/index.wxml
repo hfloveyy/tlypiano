@@ -15,7 +15,9 @@
         <view class="video">
           <video class="myvideo" src="{{item.src}}" controls="false"/>
         </view>
-
+        <view class="desc">
+          <view>作品名称：{{item.title}}</view><image class="zan" src="../images/zan1.png"/>
+        </view>
       </view>
     </block>
   </view>
