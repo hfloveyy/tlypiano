@@ -2,21 +2,22 @@
 
   $border: 1px solid #eeeeee;
     .list {
-        margin-top: 40rpx;
+        margin-top: 10rpx;
         background-color: #fff;
         border-bottom: $border;
         .item {
+            display: flex;
             height: 400rpx;
             position: relative;
             box-sizing: border-box;
-            padding: 20rpx;
+            padding: 10rpx;
             border-bottom: $border;
             flex-direction:column;
             .video{
-                display:flex;
-                justify-content: flex-end;
+                display: flex;
+                align-items: center;
                 .myvideo {
-                    width: 400rpx;
+                    width: 95%;
                     height: 300rpx;
                     margin:1px;
                 }
@@ -57,13 +58,8 @@
         </view>
         <view class="video">
           <video class="myvideo" src="{{item.src}}" controls="false"></video>
-          <view class="">
-            <view>作品名称：{{item.title}}</view>
-            <view>演奏人：{{item.player}}</view>
-            <view>年龄：{{item.age}}年</view>
-            <view>学龄：{{item.studyage}}年</view>
-          </view>
         </view>
+
       </view>
     </block>
   </view>

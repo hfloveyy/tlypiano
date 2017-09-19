@@ -24,10 +24,13 @@
 </style>
 <template>
   <view class="container">
-    <panel>
-      <view class="title" slot="title">测试列表</view>
-      <videolist></videolist>
-    </panel>
+   <swpier indicator-dots="true" autoplay="true" interval="3000" duration="1200" bindchange="">
+     <block wx:for="{{}}">
+       <swpier-item>
+         <image src="{{item}}" mode="scaleToFill"/>
+       </swpier-item>
+     </block>
+   </swpier> 
   </view>
 </template>
 

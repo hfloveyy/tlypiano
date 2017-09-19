@@ -1,32 +1,10 @@
 
   <view class="container">
-    
-  <view class="panel">
-    <view class="title">测试列表</view>
-    
-      
-      
-  <view class="list">
-    <block  wx:for-items="{{$videolist$list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-      <view bindtap="$videolist$tap" class="item" data-wepy-params-a="{{item.src}}" data-wepy-params-b="{{item.title}}" data-wepy-params-c="{{item.player}}" data-wepy-params-d="{{item.age}}" data-wepy-params-e="{{item.studyage}}">
-        <view class="user">
-          <image class="icon" src="{{item.url}}"/>
-          <view class="title">{{item.nickName}}</view>
-        </view>
-        <view class="video">
-          <video class="myvideo" src="{{item.src}}" controls="false"/>
-          <view class="">
-            <view>作品名称：{{item.title}}</view>
-            <view>演奏人：{{item.player}}</view>
-            <view>年龄：{{item.age}}年</view>
-            <view>学龄：{{item.studyage}}年</view>
-          </view>
-        </view>
-      </view>
-    </block>
-  </view>
-
-    
-  </view>
-
+   <swpier indicator-dots="true" autoplay="true" interval="3000" duration="1200" bindchange="">
+     <block  wx:for="{{}}">
+       <swpier-item>
+         <image src="{{item}}" mode="scaleToFill"/>
+       </swpier-item>
+     </block>
+   </swpier> 
   </view>
