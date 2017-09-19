@@ -24,7 +24,13 @@
 </style>
 <template>
   <view class="container">
-   
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" width="355" height="150"/>
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
 </template>
 
@@ -34,14 +40,22 @@
   import Panel from '../components/panel'
   export default class About extends wepy.page {
     config = {
-      navigationBarTitleText: 'test'
+      navigationBarTitleText: '天籁音钢琴艺术教室'
     }
     components = {
       panel: Panel,
       videolist: VideoList
     }
     data = {
-
+      imgUrls:[
+      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
+      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
+      ],
+      indicatorDots: false,
+      autoplay: true,
+      interval: 5000,
+      duration: 1000
     }
     methods = {
 

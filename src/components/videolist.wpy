@@ -39,11 +39,20 @@
                 }
             }
             .desc {
+              display:flex;
+              flex-direction:row;
               margin-top: 20rpx;
               font-size: 30rpx;
               color:#606784;
               font-family:"Times New Roman";
+              .music {
+                  display:flex;
+                  flex-direction:row;
+                  justify-content:flex-start;   
+              }
               .zan {
+                position: absolute;
+                right: 20rpx;
                 width: 50rpx;
                 height: 50rpx;
               }
@@ -68,10 +77,11 @@
           <view class="title">{{item.nickName}}</view>
         </view>
         <view class="video">
-          <video class="myvideo" src="{{item.src}}" controls="false"></video>
+          <video class="myvideo" src="{{item.src}}" controls="{{false}}" event-model="bubble">
+          </video>
         </view>
         <view class="desc">
-          <view>作品名称：{{item.title}}</view><image class="zan" src="../images/zan1.png" ></image>
+          <view class="music">作品名称：{{item.title}}</view><image class="zan" src="../images/zan1.png" @tap.stop="zan"></image>
         </view>
       </view>
     </block>
@@ -96,6 +106,9 @@
         wepy.navigateTo({
           url: 'detail?src=' + url + '&title='+ title +'&player='+ player +'&age='+ age +'&studyage='+ studyage 
         })
+      },
+      zan (e){
+        console.log("点赞")
       }
     }
 
