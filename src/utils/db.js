@@ -61,6 +61,32 @@ export default {
     }
   }
 ,
+  zan(id, nickName, url) {
+      let Diary = Bmob.Object.extend("diary");
+      let query = new Bmob.Query(Diary);
+      let user = Bmob.User.current();
+
+      let Zan_user = Bmob.Object.extend("zan_user");
+      let zan_user = new Zan_user()
+      zan_user.set("userid",user.id)
+      zan_user.set("videoid",id)
+      zan_user.save()
+      query.get(id, {
+        success: function(result) {
+          result.increment("isLike");
+          result.save();
+        },
+        error: function(object, error) {
+          // 查询失败
+        }
+      });
+}
+
+,  
+  isZan(){
+
+  }
+,  
   Bmob(){
     return Bmob
   }

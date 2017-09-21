@@ -45,7 +45,7 @@
               font-size: 30rpx;
               color:#606784;
               font-family:"Times New Roman";
-              .music {
+              .music_title {
                   display:flex;
                   flex-direction:row;
                   justify-content:flex-start;   
@@ -56,6 +56,10 @@
                 width: 50rpx;
                 height: 50rpx;
               }
+              .num {
+                  position: absolute;
+                  right: 80rpx;
+                }
             }
 
             .arrow_left {
@@ -81,7 +85,11 @@
           </video>
         </view>
         <view class="desc">
-          <view class="music">作品名称：{{item.title}}</view><image class="zan" src="../images/zan1.png" @tap.stop="zan"></image>
+          <view class="music_title">作品名称：{{item.title}}</view>
+          <view class="num">{{zan_num}}</view>
+          
+          <image wx:if="{{item.islike}}>0"class="zan" src="../images/zan2.png"></image>
+          <image wx:else class="zan" src="../images/zan1.png" @tap.stop="zan({{item.objectId}})"></image>
         </view>
       </view>
     </block>
@@ -96,7 +104,8 @@
     }
 
     data = {
-      
+      iszan: true,
+      zan_num:1000
     }
 
 
@@ -107,19 +116,22 @@
           url: 'detail?src=' + url + '&title='+ title +'&player='+ player +'&age='+ age +'&studyage='+ studyage 
         })
       },
-      zan (e){
+      zan (id,e){
         console.log("点赞")
+        let nickName = this.$parent.userInfo.nickName
+        let url = this.$parent.userInfo.avatarUrl
+        db.zan(id)
       }
     }
 
     onLoad() {
       console.log('videolist onLoad')
+      //console.log(this.list)
       //let res = await db.getList()
       //console.log(res.data)
       //this.list = res.data
       //this.$apply()
       //console.log(this.list)
     }
-    
   }
 </script>

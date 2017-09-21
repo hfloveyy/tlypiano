@@ -64,8 +64,6 @@
       let res = await db.getList()
       this.list= res.data
       this.$apply()
-      console.log("this.list")
-      //console.log(this.list)
     }
     async onPullDownRefresh () {
       let res = await db.getList()
@@ -80,7 +78,7 @@
       //console.log(res.data)
       this.list = res.data
       this.$apply()
-      console.log('circle 下一页')
+      console.log('下一页')
     }
   }
 
