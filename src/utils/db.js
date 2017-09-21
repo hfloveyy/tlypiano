@@ -61,7 +61,7 @@ export default {
     }
   }
 ,
-  zan(id, nickName, url) {
+  zan(id) {
       let Diary = Bmob.Object.extend("diary");
       let query = new Bmob.Query(Diary);
       let user = Bmob.User.current();
