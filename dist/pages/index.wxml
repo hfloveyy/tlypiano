@@ -19,8 +19,8 @@
         <view class="desc">
           <view class="music_title">作品名称：{{item.title}}</view>
           <view class="num">{{item.isLike}}</view>
-          <image wx:if="{{$videolist$iszan}}" class="zan" src="../images/zan2.png"/>
-          <image wx:else class="zan" src="../images/zan1.png" catchtap="$videolist$zan" data-wepy-params-a="{{item.objectId}}"/>
+          <image wx:if="{{$videolist$iszan}}" class="zan" src="../images/zan2.png" catchtap="$videolist$zan" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}"/>
+          <image wx:else class="zan" src="../images/zan1.png" catchtap="$videolist$zan" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}"/>
         </view>
       </view>
     </block>

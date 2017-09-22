@@ -74,10 +74,10 @@
     }
 
     async onReachBottom () {
-      let res = await db.getList()
+      //let res = await db.getList()
       //console.log(res.data)
-      this.list = res.data
-      this.$apply()
+      //this.list = res.data
+      //this.$apply()
       console.log('下一页')
     }
   }

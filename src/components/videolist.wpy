@@ -87,8 +87,8 @@
         <view class="desc">
           <view class="music_title">作品名称：{{item.title}}</view>
           <view class="num">{{item.isLike}}</view>
-          <image wx:if="{{iszan}}" class="zan" src="../images/zan2.png"></image>
-          <image wx:else class="zan" src="../images/zan1.png" @tap.stop="zan({{item.objectId}})"></image>
+          <image wx:if="{{iszan}}" class="zan" src="../images/zan2.png" @tap.stop="zan({{item}},{{index}})"></image>
+          <image wx:else class="zan" src="../images/zan1.png" @tap.stop="zan({{item}},{{index}})"></image>
         </view>
       </view>
     </block>
@@ -104,8 +104,9 @@
 
     data = {
       iszan: false,
-      zan_num:1000
+      zan_num:0
     }
+    
 
 
 
@@ -115,12 +116,24 @@
           url: 'detail?src=' + url + '&title='+ title +'&player='+ player +'&age='+ age +'&studyage='+ studyage 
         })
       },
-      zan (id,e){
-        console.log("点赞")
-
-        let nickName = this.$parent.userInfo.nickName
-        let url = this.$parent.userInfo.avatarUrl
-        db.zan(id)
+      zan (item,index,e){
+        console.log("点赞") 
+        let that = this
+        console.log(index)
+        console.log(this.list[index]['url'])
+        //let res = await db.zan(item.objectId)
+        //console.log(res.result)  
+        //console.log(res.isLike)
+        //this.list[index]['isLike'] = res.isLike
+        //this.$apply()
+        //console.log(this.list[index]['isLike'] )
+        db.zan(item.objectId).then(function (res){
+          //console.log(res.result)  
+          //console.log(res.isLike)
+          that.list[index]['isLike'] = res.isLike
+          that.$apply()
+          console.log(that.list[index]['isLike'])
+        })
       }
     }
 

@@ -62,25 +62,53 @@ export default {
   }
 ,
   zan(id) {
-      let Diary = Bmob.Object.extend("diary");
-      let query = new Bmob.Query(Diary);
-      let user = Bmob.User.current();
+     let Diary = Bmob.Object.extend("diary");
+     let query = new Bmob.Query(Diary);
+     let user = Bmob.User.current();
 
-      let Zan_user = Bmob.Object.extend("zan_user");
-      let zan_user = new Zan_user()
-      zan_user.set("userid",user.id)
-      zan_user.set("videoid",id)
-      zan_user.save()
-      query.get(id, {
-        success: function(result) {
-          result.increment("isLike");
-          result.save();
-        },
-        error: function(object, error) {
-          // 查询失败
-        }
-      });
-}
+     let Zan_user = Bmob.Object.extend("zan_user");
+     let zan_user_query = new Bmob.Query(Zan_user);
+     zan_user_query.equalTo("userid", user.id);
+     zan_user_query.equalTo("videoid", id);
+
+     let promise = new Promise(function(resolve, reject) {
+         zan_user_query.find({
+           success: function(results) {
+             //console.log("共查询到 " + results.length + " 条记录");
+             if (results.length) {
+                resolve({
+                    isLike:results[0].get("isLike")
+                   });
+             } else {
+               let object = new Zan_user()
+               object.set("userid", user.id)
+               object.set("videoid", id)
+               object.save()
+               query.get(id, {
+                 success: function(result) {
+                   result.increment("isLike");
+                   result.save();
+                   console.log("点赞成功");
+                   resolve({
+                    result:result,
+                    isLike:result.get("isLike")
+                   });
+                 },
+                 error: function(object, error) {
+                   // 查询失败
+                 }
+               });
+             }
+           },
+           error: function(error) {
+             console.log("查询失败: " + error.code + " " + error.message);
+           }
+         })
+     })
+     return promise
+  }
+
+
 
 ,  
   isZan(){
