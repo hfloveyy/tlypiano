@@ -77,7 +77,7 @@ export default {
              //console.log("共查询到 " + results.length + " 条记录");
              if (results.length) {
                 resolve({
-                    isLike:results[0].get("isLike")
+                    isLike:true
                    });
              } else {
                let object = new Zan_user()

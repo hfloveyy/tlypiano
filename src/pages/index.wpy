@@ -63,6 +63,7 @@
       console.log('index onShow')
       let res = await db.getList()
       this.list= res.data
+      console.log(this.list)
       this.$apply()
     }
     async onPullDownRefresh () {

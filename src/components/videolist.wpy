@@ -99,7 +99,7 @@
   import db from '../utils/db'
   export default class VideoList extends wepy.component {
     props = {
-      list: {}
+      list: {twoWay:true}
     }
 
     data = {
@@ -116,24 +116,28 @@
           url: 'detail?src=' + url + '&title='+ title +'&player='+ player +'&age='+ age +'&studyage='+ studyage 
         })
       },
-      zan (item,index,e){
+      async zan (item,index,e){
         console.log("点赞") 
-        let that = this
         console.log(index)
-        console.log(this.list[index]['url'])
-        //let res = await db.zan(item.objectId)
+        console.log(this.list[index]['attributes']['title'])
+        let res = await db.zan(item.objectId)
         //console.log(res.result)  
         //console.log(res.isLike)
-        //this.list[index]['isLike'] = res.isLike
-        //this.$apply()
+        if(res.isLike!==true){
+          //this.list[index] = res.result
+          //this.list[index]['attributes']['isLike'] = res.isLike
+          this.list[index]['attributes']['isLike'] + 1
+          this.$apply()
+        }
         //console.log(this.list[index]['isLike'] )
-        db.zan(item.objectId).then(function (res){
+        /*db.zan(item.objectId).then(function (res){
           //console.log(res.result)  
-          //console.log(res.isLike)
-          that.list[index]['isLike'] = res.isLike
+          console.log(that.list[index]['attributes']['isLike'])
+          that.list[index]['attributes']['isLike'] = res.isLike
+          console.log(that.list[index]['attributes'])
           that.$apply()
-          console.log(that.list[index]['isLike'])
-        })
+          //console.log(that.list[index]['isLike'])
+        })*/
       }
     }
 
