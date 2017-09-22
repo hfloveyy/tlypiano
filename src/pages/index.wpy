@@ -30,7 +30,7 @@
       <view @tap="tap" class="title" slot="title">测试列表</view>
       <videolist></videolist>
     </panel>-->
-    <videolist :list.sync="list"></videolist>
+    <videolist :list.sync="list" :mylist.sync="mylist"></videolist>
   </view>
 </template>
 
@@ -50,6 +50,7 @@
     }
     data = {
       list: [],
+      mylist:[{title:{aa:'aa'},name:'bb'},{title:{aa:'cc'},name:'dd'}],
       userInfo:{}
     }
     methods = {
@@ -63,7 +64,7 @@
       console.log('index onShow')
       let res = await db.getList()
       this.list= res.data
-      console.log(this.list)
+      //console.log(this.list)
       this.$apply()
     }
     async onPullDownRefresh () {

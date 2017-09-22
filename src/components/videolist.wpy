@@ -87,8 +87,18 @@
         <view class="desc">
           <view class="music_title">作品名称：{{item.title}}</view>
           <view class="num">{{item.isLike}}</view>
-          <image wx:if="{{iszan}}" class="zan" src="../images/zan2.png" @tap.stop="zan({{item}},{{index}})"></image>
+          <image wx:if="{{item.iszan}}" class="zan" src="../images/zan2.png" @tap.stop="zan({{item}},{{index}})"></image>
           <image wx:else class="zan" src="../images/zan1.png" @tap.stop="zan({{item}},{{index}})"></image>
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="list">
+    <block wx:for-items="{{mylist}}" wx:for-index="index" wx:for-item="item" wx:key="id">
+      <view class="item">
+        <view class="desc">
+          <view class="title">{{item.aa}}{{item.title.aa}}{{item.name}}</view>
+          <image class="zan" src="../images/zan1.png" @tap.stop="mytap({{index}},{{item}})"></image>
         </view>
       </view>
     </block>
@@ -99,17 +109,16 @@
   import db from '../utils/db'
   export default class VideoList extends wepy.component {
     props = {
-      list: {twoWay:true}
+      list: {twoWay:true},
+      mylist:{}
     }
 
     data = {
+      
       iszan: false,
       zan_num:0
     }
     
-
-
-
     methods = {
       tap (url, title ,player, age, studyage, e) {
         wepy.navigateTo({
@@ -118,26 +127,19 @@
       },
       async zan (item,index,e){
         console.log("点赞") 
-        console.log(index)
-        console.log(this.list[index]['attributes']['title'])
         let res = await db.zan(item.objectId)
         //console.log(res.result)  
-        //console.log(res.isLike)
-        if(res.isLike!==true){
-          //this.list[index] = res.result
-          //this.list[index]['attributes']['isLike'] = res.isLike
-          this.list[index]['attributes']['isLike'] + 1
-          this.$apply()
+        if(res.isLike){
+          
         }
-        //console.log(this.list[index]['isLike'] )
-        /*db.zan(item.objectId).then(function (res){
-          //console.log(res.result)  
-          console.log(that.list[index]['attributes']['isLike'])
-          that.list[index]['attributes']['isLike'] = res.isLike
-          console.log(that.list[index]['attributes'])
-          that.$apply()
-          //console.log(that.list[index]['isLike'])
-        })*/
+        this.list[index] = res.result
+        console.log(this.list[index])
+        this.$apply()
+      },
+      mytap(index,item){
+        console.log(this.mylist[index])
+        this.mylist[index]['title']['aa'] = 'hack it'
+        console.log(this.mylist[index])
       }
     }
 
