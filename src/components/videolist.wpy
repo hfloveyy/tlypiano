@@ -75,32 +75,22 @@
 <template>
   <view class="list">
     <block wx:for-items="{{list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-      <view @tap="tap({{item.src}},{{item.title}},{{item.player}},{{item.age}},{{item.studyage}})" class="item">
-        <view class="user">
-          <image class="icon" src="{{item.url}}"></image>
-          <view class="title">{{item.nickName}}</view>
+        <view @tap="tap({{item.src}},{{item.title}},{{item.player}},{{item.age}},{{item.studyage}})" class="item">
+          <view class="user">
+            <image class="icon" src="{{item.url}}"></image>
+            <view class="title">{{item.nickName}}</view>
+          </view>
+          <view class="video">
+            <video class="myvideo" src="{{item.src}}" controls="{{false}}" event-model="bubble">
+            </video>
+          </view>
+          <view class="desc">
+            <view class="music_title">作品名称：{{item.title}}</view>
+            <view class="num">{{item.isLike}}</view>
+            <image wx:if="{{likearray[item.objectId] > 0}}" class="zan" src="../images/zan2.png" @tap.stop="zan({{item}},{{index}})"></image>
+            <image wx:else class="zan" src="../images/zan1.png" @tap.stop="zan({{item}},{{index}})"></image>
+          </view>
         </view>
-        <view class="video">
-          <video class="myvideo" src="{{item.src}}" controls="{{false}}" event-model="bubble">
-          </video>
-        </view>
-        <view class="desc">
-          <view class="music_title">作品名称：{{item.title}}</view>
-          <view class="num">{{item.isLike}}</view>
-          <image wx:if="{{item.iszan}}" class="zan" src="../images/zan2.png" @tap.stop="zan({{item}},{{index}})"></image>
-          <image wx:else class="zan" src="../images/zan1.png" @tap.stop="zan({{item}},{{index}})"></image>
-        </view>
-      </view>
-    </block>
-  </view>
-  <view class="list">
-    <block wx:for-items="{{mylist}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-      <view class="item">
-        <view class="desc">
-          <view class="title">{{item.aa}}{{item.title.aa}}{{item.name}}</view>
-          <image class="zan" src="../images/zan1.png" @tap.stop="mytap({{index}},{{item}})"></image>
-        </view>
-      </view>
     </block>
   </view>
 </template>
@@ -109,14 +99,11 @@
   import db from '../utils/db'
   export default class VideoList extends wepy.component {
     props = {
-      list: {twoWay:true},
-      mylist:{}
+      list: {},
+      likearray:{}
     }
 
     data = {
-      
-      iszan: false,
-      zan_num:0
     }
     
     methods = {
@@ -128,18 +115,25 @@
       async zan (item,index,e){
         console.log("点赞") 
         let res = await db.zan(item.objectId)
-        //console.log(res.result)  
-        if(res.isLike){
-          
+        this.likearray = res.likearray
+        console.log(this.likearray[index])  
+        if(res.isLike===true){
+          wx.showToast({
+            title: '点过啦',
+            icon: 'success',
+            duration: 2000
+          })
+        }else{
+          this.list[index] = res.result
+          wx.showToast({
+            title: '点赞成功',
+            icon: 'success',
+            duration: 2000
+          })
         }
-        this.list[index] = res.result
-        console.log(this.list[index])
+        //console.log(this.list[index])
         this.$apply()
-      },
-      mytap(index,item){
-        console.log(this.mylist[index])
-        this.mylist[index]['title']['aa'] = 'hack it'
-        console.log(this.mylist[index])
+        
       }
     }
 

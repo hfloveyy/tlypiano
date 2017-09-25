@@ -7,32 +7,22 @@
     
   <view class="list">
     <block  wx:for-items="{{$videolist$list}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-      <view bindtap="$videolist$tap" class="item" data-wepy-params-a="{{item.src}}" data-wepy-params-b="{{item.title}}" data-wepy-params-c="{{item.player}}" data-wepy-params-d="{{item.age}}" data-wepy-params-e="{{item.studyage}}">
-        <view class="user">
-          <image class="icon" src="{{item.url}}"/>
-          <view class="title">{{item.nickName}}</view>
+        <view bindtap="$videolist$tap" class="item" data-wepy-params-a="{{item.src}}" data-wepy-params-b="{{item.title}}" data-wepy-params-c="{{item.player}}" data-wepy-params-d="{{item.age}}" data-wepy-params-e="{{item.studyage}}">
+          <view class="user">
+            <image class="icon" src="{{item.url}}"/>
+            <view class="title">{{item.nickName}}</view>
+          </view>
+          <view class="video">
+            <video class="myvideo" src="{{item.src}}" controls="{{$videolist$false}}" event-model="bubble">
+            </video>
+          </view>
+          <view class="desc">
+            <view class="music_title">作品名称：{{item.title}}</view>
+            <view class="num">{{item.isLike}}</view>
+            <image wx:if="{{$videolist$likearray[item.objectId] > 0}}" class="zan" src="../images/zan2.png" catchtap="$videolist$zan" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}"/>
+            <image wx:else class="zan" src="../images/zan1.png" catchtap="$videolist$zan" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}"/>
+          </view>
         </view>
-        <view class="video">
-          <video class="myvideo" src="{{item.src}}" controls="{{$videolist$false}}" event-model="bubble">
-          </video>
-        </view>
-        <view class="desc">
-          <view class="music_title">作品名称：{{item.title}}</view>
-          <view class="num">{{item.isLike}}</view>
-          <image wx:if="{{item.iszan}}" class="zan" src="../images/zan2.png" catchtap="$videolist$zan" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}"/>
-          <image wx:else class="zan" src="../images/zan1.png" catchtap="$videolist$zan" data-wepy-params-a="{{item}}" data-wepy-params-b="{{index}}"/>
-        </view>
-      </view>
-    </block>
-  </view>
-  <view class="list">
-    <block  wx:for-items="{{$videolist$mylist}}" wx:for-index="index" wx:for-item="item" wx:key="id">
-      <view class="item">
-        <view class="desc">
-          <view class="title">{{item.aa}}{{item.title.aa}}{{item.name}}</view>
-          <image class="zan" src="../images/zan1.png" catchtap="$videolist$mytap" data-wepy-params-a="{{index}}" data-wepy-params-b="{{item}}"/>
-        </view>
-      </view>
     </block>
   </view>
 

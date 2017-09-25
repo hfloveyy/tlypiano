@@ -14,13 +14,41 @@ export default {
     let Diary = Bmob.Object.extend("diary");
     let query = new Bmob.Query(Diary);
     query.limit(10);
-    query.descending('updatedAt')
-    let results = []
+    query.descending('objectId')
+
+    let user = Bmob.User.current();
+
+    
+    //zan_user_query.equalTo("videoid", id);
+    let like_array = {}
+    let isZan = false
     let promise = new Promise(function(resolve, reject) {
       query.find({
         success: function(results) {
+          for (var i = 0; i < results.length; i++) {
+            var object = results[i];
+            console.log(object.id);
+            let Zan_user = Bmob.Object.extend("zan_user");
+            let zan_user_query = new Bmob.Query(Zan_user);
+            zan_user_query.equalTo("userid", user.id);
+            zan_user_query.equalTo("videoid", object.id);
+            zan_user_query.find({
+              success: function(results){
+                console.log(object.id);
+                if(results.length){
+                  like_array[object.id] = 1
+                }else{
+                  like_array[object.id] = 0
+                }
+              },
+              error: function(object, error){
+              }
+            })
+          }
+          //console.log(like_array);
           resolve({
-            data: results
+            data: results,
+            like_array: like_array
           })
         },
         error: function(error) {
@@ -77,7 +105,8 @@ export default {
              //console.log("共查询到 " + results.length + " 条记录");
              if (results.length) {
                 resolve({
-                    isLike:true
+                    isLike:true,
+                    result:results[0]
                    });
              } else {
                let object = new Zan_user()
@@ -86,12 +115,14 @@ export default {
                object.save()
                query.get(id, {
                  success: function(result) {
+                   likearray[result.id] = 1
                    result.increment("isLike");
                    result.save();
                    console.log("点赞成功");
                    resolve({
                     result:result,
-                    isLike:result.get("isLike")
+                    isLike:result.get("isLike"),
+                    likearray:likearray
                    });
                  },
                  error: function(object, error) {
