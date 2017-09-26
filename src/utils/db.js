@@ -23,29 +23,32 @@ export default {
     let like_array = {}
     let isZan = false
     let promise = new Promise(function(resolve, reject) {
+      /*
       query.find({
         success: function(results) {
           for (var i = 0; i < results.length; i++) {
             var object = results[i];
-            console.log(object.id);
+            //console.log(object.id);
             let Zan_user = Bmob.Object.extend("zan_user");
             let zan_user_query = new Bmob.Query(Zan_user);
             zan_user_query.equalTo("userid", user.id);
             zan_user_query.equalTo("videoid", object.id);
             zan_user_query.find({
               success: function(results){
-                console.log(object.id);
+                console.log("results");
+                console.log(results);
                 if(results.length){
-                  like_array[object.id] = 1
+                  like_array["1"] = 1
                 }else{
-                  like_array[object.id] = 0
+                  like_array["0"] = 0
                 }
               },
               error: function(object, error){
               }
             })
           }
-          //console.log(like_array);
+          console.log("like_array");
+          console.log(like_array);
           resolve({
             data: results,
             like_array: like_array
@@ -55,6 +58,15 @@ export default {
           //console.log("查询失败: " + error.code + " " + error.message);
           reject(error)
         }
+      })*/
+      query.find().then(function(results){
+        
+        return results
+      }).then(function(results){
+        resolve({
+          data: results,
+          like_array: like_array
+        })
       })
     });
     // 查询所有数据
@@ -102,14 +114,17 @@ export default {
      let promise = new Promise(function(resolve, reject) {
          zan_user_query.find({
            success: function(results) {
+              let likearray ={}
              //console.log("共查询到 " + results.length + " 条记录");
              if (results.length) {
                 resolve({
                     isLike:true,
-                    result:results[0]
+                    result:results[0],
+                    likearray:{}
                    });
              } else {
                let object = new Zan_user()
+               
                object.set("userid", user.id)
                object.set("videoid", id)
                object.save()
